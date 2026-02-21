@@ -27,6 +27,11 @@ The objective is to predict which inquiry students are most likely to convert to
 
 ## Technical Approach
 
+The full modeling implementation can be reviewed in the project notebook:
+
+🔗 [View Code on GitHub][(https://github.com/YOUR_USERNAME/YOUR_REPO/blob/main/your_notebook.ipynb](https://github.com/qfattah/Student-Enrollment-Management-Predictive-Model/blob/main/Enrollment-Yield-Prediction.ipynb))
+
+This section outlines the end-to-end modeling pipeline including data preparation, feature engineering, multicollinearity diagnostics (VIF), logistic regression, decision tree modeling, and performance evaluation.
 ### 1. Data Preparation
 
 **Dataset:** `inq2021.csv`
