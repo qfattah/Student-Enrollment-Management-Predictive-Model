@@ -1,50 +1,169 @@
-# Enrollment Yield Prediction Using Logistic Regression and Decision Trees
+# Enrollment Yield Prediction | Logistic Regression & Decision Tree Modeling
 
-This project develops predictive models to identify prospective students most likely to enroll as new freshmen using the INQ2021 dataset. The analysis includes data cleaning, preprocessing, feature engineering, multicollinearity assessment, and classification modeling to support data-driven enrollment management decisions.
+## Project Overview
 
-You can review the code here:  
-[INQ2021_Enrollment_Modeling]()
+This project develops predictive classification models to identify prospective students most likely to enroll as freshmen using the **INQ2021** inquiry dataset.
 
----
+Universities often receive tens of thousands of inquiries but enroll only a small fraction of students. Accurate yield prediction enables enrollment management teams to:
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Setup](#setup)
-- [Data Preparation](#data-preparation)
-- [Feature Engineering](#feature-engineering)
-- [Multicollinearity Assessment](#multicollinearity-assessment)
-- [Modeling Approach](#modeling-approach)
-- [Conclusion](#conclusion)
+- Prioritize outreach efforts
+- Allocate recruiting resources efficiently
+- Improve forecasting accuracy
+- Optimize scholarship and engagement strategy
+
+This project builds an end-to-end predictive pipeline using logistic regression and decision tree models to estimate enrollment probability.
 
 ---
 
-## Introduction
+## Business Context
 
-In Fall 2022, university leadership sought to improve enrollment forecasting by identifying which prospective students were most likely to enroll. Historically, the university received over 90,000 inquiries and enrolled approximately 2,400–2,800 freshmen each year.
+- ~90,000 annual inquiries  
+- ~2,400–2,800 enrolled freshmen  
+- Target variable: **Enroll (0/1)**  
 
-This project uses Fall 2021 inquiry data (INQ2021) to build predictive classification models.
-
-The workflow includes:
-
-1. **Data Importation** – Loading the INQ2021 dataset into Python.
-2. **Data Cleaning & Variable Selection** – Removing irrelevant, constant, and ethically sensitive variables.
-3. **Missing Value Treatment** – Handling missing data using mean and mode imputation.
-4. **Feature Engineering** – Creating dummy variables and applying log transformations.
-5. **Multicollinearity Analysis** – Using Variance Inflation Factor (VIF) to assess predictor redundancy.
-6. **Model Development** – Applying logistic regression and decision tree classification models.
-7. **Model Evaluation** – Comparing performance to support enrollment strategy decisions.
+The objective is to predict which inquiry students are most likely to convert to enrolled students, enabling data-driven decision making.
 
 ---
 
-## Setup
+## Technical Approach
 
-### Prerequisites
-- Python 3.x
-- Jupyter Notebook
+### 1. Data Preparation
 
-### Libraries
+**Dataset:** `inq2021.csv`
 
-Install required libraries using pip:
+Steps performed:
 
-```bash
-pip install pandas numpy matplotlib statsmodels scikit-learn
+- Removed constant and administrative variables
+- Excluded ethically sensitive features (`ETHNICITY`, `sex`)
+- Dropped high-missingness variables (>50%)
+- Imputed missing numerical values using mean
+- Imputed categorical values using mode
+- Confirmed zero remaining missing values
+
+This ensures ethical modeling practices and clean feature inputs.
+
+---
+
+### 2. Feature Engineering
+
+- Created dummy variables for categorical features (`TERRITORY`, `Instate`)
+- Excluded reference categories to prevent perfect multicollinearity
+- Evaluated skewness using histograms
+- Applied log transformation to:
+  - `TOTAL_CONTACTS`
+  - `avg_income`
+  - `distance`
+
+This improved distribution normality and model stability.
+
+---
+
+### 3. Multicollinearity Control (VIF)
+
+Variance Inflation Factor (VIF) was computed for all predictors.
+
+Features with **VIF > 10** were removed:
+
+- `TOTAL_CONTACTS`
+- `mailq`
+- `distance`
+- `avg_income`
+
+Reducing multicollinearity improves:
+- Coefficient interpretability
+- Statistical stability
+- Model generalizability
+
+---
+
+### 4. Model Development
+
+Data was split into:
+
+- 70% Training  
+- 30% Validation  
+
+#### Logistic Regression (Statsmodels Logit)
+
+- Interpretable probabilistic model
+- Coefficient significance analysis
+- Enrollment probability scoring
+
+#### Decision Tree (Scikit-learn)
+
+- Captures nonlinear relationships
+- Provides rule-based segmentation
+- Visualizable decision structure
+
+---
+
+## Model Evaluation
+
+Both models were evaluated using:
+
+- Confusion Matrix
+- ROC Curve
+- ROC-AUC Score
+
+Metrics used:
+
+- True Positive Rate
+- False Positive Rate
+- Area Under Curve (AUC)
+
+ROC curves were plotted to visually compare model performance.
+
+---
+
+## Key Skills Demonstrated
+
+- Data Cleaning & Preparation  
+- Ethical Feature Selection  
+- Missing Value Imputation  
+- Feature Engineering  
+- Multicollinearity Diagnosis (VIF)  
+- Logistic Regression Modeling  
+- Decision Tree Modeling  
+- Model Evaluation (ROC-AUC, Confusion Matrix)  
+- Train/Test Splitting & Validation  
+
+---
+
+## Impact & Practical Application
+
+This framework can be used by enrollment teams to:
+
+- Rank prospects by enrollment likelihood  
+- Prioritize high-probability students  
+- Optimize marketing and recruiting spend  
+- Improve yield forecasting  
+
+The approach is scalable and can be extended with cross-validation, hyperparameter tuning, and production deployment pipelines.
+
+---
+
+## Future Enhancements
+
+- K-Fold Cross Validation
+- Hyperparameter tuning (GridSearch)
+- Feature importance comparison
+- Model calibration analysis
+- Deployment-ready probability scoring system
+
+---
+
+## Tools & Libraries
+
+- Python
+- Pandas
+- NumPy
+- Statsmodels
+- Scikit-learn
+- Matplotlib
+
+---
+
+## Author
+
+Qusai Fattah  
+Advanced Business Analytics | Predictive Modeling | Data-Driven Decision Making
